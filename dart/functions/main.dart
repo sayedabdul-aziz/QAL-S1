@@ -3,9 +3,9 @@
 // int power (int base, int exp)
 
 void main() {
-  // display("Ahmed", 20, "Egyptian");
-  // display1("Ahmed", 20);
-  // display2(age: 20, nationality: "Egyptian", name: "Ahmed");
+  display("Ahmed", 20, "Egyptian");
+  display1("Ahmed", 20);
+  display2(age: 20, nationality: "Egyptian", name: "Ahmed");
   display3(age: 20, name: "Ahmed");
   display4("Ahmed", age: 20);
 }
