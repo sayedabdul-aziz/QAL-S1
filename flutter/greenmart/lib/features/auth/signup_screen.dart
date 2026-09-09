@@ -7,11 +7,11 @@ import 'package:greenmart/core/styles/app_colors.dart';
 import 'package:greenmart/core/styles/text_styles.dart';
 import 'package:greenmart/core/widgets/custom_text_field.dart';
 import 'package:greenmart/core/widgets/main_button.dart';
-import 'package:greenmart/features/auth/signup_screen.dart';
+import 'package:greenmart/features/auth/login_screen.dart';
 import 'package:greenmart/features/main/main_app_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +30,15 @@ class LoginScreen extends StatelessWidget {
                     child: SvgPicture.asset(AppImages.carrotSvg),
                   ),
                   const Gap(40),
-                  const Text('Login', style: TextStyles.headline2),
+                  const Text('Sign Up', style: TextStyles.headline2),
                   const Gap(16),
                   Text(
-                    'Enter your email and password',
+                    'Enter your credentials to continue',
                     style: TextStyles.body.copyWith(color: AppColors.greyColor),
                   ),
                   const Gap(40),
+                  const CustomTextField(title: 'Name', hintText: 'John Doe'),
+                  const Gap(10),
                   const CustomTextField(
                     title: 'Email',
                     hintText: 'example@gmail.com',
@@ -47,21 +49,9 @@ class LoginScreen extends StatelessWidget {
                     hintText: '********',
                   ),
 
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyles.body.copyWith(
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Gap(20),
+                  const Gap(40),
                   MainButton(
-                    text: 'Login',
+                    text: 'Sign Up',
                     onPressed: () {
                       pushReplacement(context, const MainAppScreen());
                     },
@@ -71,12 +61,12 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Don\'t have an account?',
+                        'Already have an account?',
                         style: TextStyles.caption1,
                       ),
                       TextButton(
                         onPressed: () {
-                          pushReplacement(context, const SignUpScreen());
+                          pushReplacement(context, const LoginScreen());
                         },
                         style: TextButton.styleFrom(
                           minimumSize: .zero,
@@ -86,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Sign Up',
+                          'Login',
                           style: TextStyles.caption1.copyWith(
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.w600,

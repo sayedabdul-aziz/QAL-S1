@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:greenmart/core/constants/app_images.dart';
-import 'package:greenmart/core/utils/app_colors.dart';
+import 'package:greenmart/core/functions/naviagtions.dart';
+import 'package:greenmart/core/styles/app_colors.dart';
+import 'package:greenmart/core/styles/text_styles.dart';
 import 'package:greenmart/core/widgets/main_button.dart';
+import 'package:greenmart/features/auth/login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -29,32 +32,35 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   AppImages.carrotSvg,
-                  colorFilter: ColorFilter.mode(
+                  colorFilter: const ColorFilter.mode(
                     AppColors.whiteColor,
                     BlendMode.srcIn,
                   ),
                 ),
-                Gap(10),
+                const Gap(10),
                 Text(
                   'Welcome\nto our store',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w600,
+                  style: TextStyles.headline1.copyWith(
                     color: AppColors.whiteColor,
+                    fontSize: 40,
+                    height: 1.2,
                   ),
                 ),
-                Gap(10),
+                const Gap(10),
                 Text(
                   'Ger your groceries in as fast as one hour',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  style: TextStyles.caption1.copyWith(
                     color: AppColors.whiteColor,
                   ),
                 ),
-                Gap(20),
-                MainButton(onTap: () {}, title: "Get Started"),
+                const Gap(20),
+                MainButton(
+                  onPressed: () {
+                    pushReplacement(context, const LoginScreen());
+                  },
+                  text: "Get Started",
+                ),
               ],
             ),
           ),
