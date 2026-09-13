@@ -13,7 +13,7 @@ class TextStyles {
 
   static const TextStyle title1 = TextStyle(
     fontSize: 22,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w600,
   );
 
   static const TextStyle title2 = TextStyle(

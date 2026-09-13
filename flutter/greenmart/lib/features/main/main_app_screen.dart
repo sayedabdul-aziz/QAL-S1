@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greenmart/core/constants/app_images.dart';
 import 'package:greenmart/core/styles/app_colors.dart';
 import 'package:greenmart/core/widgets/custom_svg_image.dart';
+import 'package:greenmart/features/cart/page/cart_screen.dart';
 import 'package:greenmart/features/shop/page/shop_screen.dart';
 
 class MainAppScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
   final List<Widget> screens = [
     const ShopScreen(),
     const Scaffold(body: Center(child: Text('Search'))),
-    const Scaffold(body: Center(child: Text('Cart'))),
+    const CartScreen(),
     const Scaffold(body: Center(child: Text('Wishlist'))),
     const Scaffold(body: Center(child: Text('Profile'))),
   ];
