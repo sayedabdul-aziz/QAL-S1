@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:greenmart/core/styles/text_styles.dart';
+import 'package:taskati/core/styles/text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -9,8 +9,10 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.prefixIcon,
     this.validator,
+    this.controller,
   });
 
+  final TextEditingController? controller;
   final String? title;
   final String hintText;
   final Icon? prefixIcon;
@@ -29,11 +31,15 @@ class CustomTextField extends StatelessWidget {
           const Gap(8),
         ],
         TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             hintText: hintText,
           ),
           validator: validator,
+
+          onTapOutside: (event) =>
+              FocusManager.instance.primaryFocus?.unfocus(),
         ),
       ],
     );
