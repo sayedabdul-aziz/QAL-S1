@@ -17,13 +17,11 @@ class AppThemes {
     ),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: TextStyles.caption1.copyWith(color: AppColors.greyColor),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.greyColor),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: AppColors.primaryColor),
+      fillColor: AppColors.whiteColor,
+      filled: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide.none,
       ),
     ),
     colorScheme: ColorScheme.fromSeed(

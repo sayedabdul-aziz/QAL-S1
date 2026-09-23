@@ -11,9 +11,10 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.3.0
   gap: ^3.0.1
-  lottie: ^3.3.3
+  hive_ce: ^2.20.0
+  hive_ce_flutter: ^2.3.4
   image_picker: ^1.2.3
-
+  lottie: ^3.3.3
 
 dev_dependencies:
   flutter_lints: ^6.0.0
@@ -26,7 +27,6 @@ flutter:
   assets:
     - assets/images/
     - assets/lottie/
-
 
   fonts:
     - family: Poppins

@@ -5,7 +5,8 @@ import 'package:taskati/core/constants/app_images.dart';
 import 'package:taskati/core/functions/naviagtions.dart';
 import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
-import 'package:taskati/features/upload/upload_screen.dart';
+import 'package:taskati/core/widgets/my_scaffold.dart';
+import 'package:taskati/features/home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,14 +19,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
-      pushReplacement(context, const UploadScreen());
+      pushReplacement(context, const HomeScreen());
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MyScaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
