@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:taskati/core/services/local/hive_provider.dart';
 import 'package:taskati/core/styles/themes.dart';
 import 'package:taskati/features/spalsh/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // init all services
-  await Hive.initFlutter();
-  await Hive.openBox('userBox');
+  await HiveProvider.init();
   runApp(const MainApp());
 }
 

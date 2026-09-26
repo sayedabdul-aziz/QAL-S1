@@ -3,10 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskati/core/constants/app_images.dart';
 import 'package:taskati/core/functions/naviagtions.dart';
+import 'package:taskati/core/services/local/hive_provider.dart';
 import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 import 'package:taskati/core/widgets/my_scaffold.dart';
-import 'package:taskati/features/home/home_screen.dart';
+import 'package:taskati/features/home/page/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,8 +19,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    bool userHasData = HiveProvider.getData(HiveProvider.kName) != null;
+
     Future.delayed(const Duration(seconds: 3), () {
-      pushReplacement(context, const HomeScreen());
+      if (mounted) {
+        if (userHasData) {
+          pushReplacement(context, const HomeScreen());
+        } else {
+          pushReplacement(context, const HomeScreen());
+        }
+      }
     });
     super.initState();
   }
