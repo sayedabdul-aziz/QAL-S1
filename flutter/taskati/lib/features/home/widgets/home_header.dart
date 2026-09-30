@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:taskati/core/constants/app_images.dart';
 import 'package:taskati/core/services/local/hive_provider.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 
@@ -18,8 +19,8 @@ class _HomeHeaderState extends State<HomeHeader> {
 
   @override
   void initState() {
-    image = HiveProvider.getData(HiveProvider.kImage);
-    name = HiveProvider.getData(HiveProvider.kName);
+    image = HiveProvider.getData(HiveProvider.kImage) ?? '';
+    name = HiveProvider.getData(HiveProvider.kName) ?? 'User';
     super.initState();
   }
 
@@ -31,6 +32,15 @@ class _HomeHeaderState extends State<HomeHeader> {
           ClipOval(
             child: Image.file(
               File(image),
+              height: 50,
+              width: 50,
+              fit: BoxFit.cover,
+            ),
+          ),
+        if (image.isEmpty)
+          ClipOval(
+            child: Image.asset(
+              AppImages.userEmpty,
               height: 50,
               width: 50,
               fit: BoxFit.cover,

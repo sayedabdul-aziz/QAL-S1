@@ -19,6 +19,7 @@ class AppThemes {
       hintStyle: TextStyles.caption1.copyWith(color: AppColors.greyColor),
       fillColor: AppColors.whiteColor,
       filled: true,
+      errorStyle: TextStyles.caption2.copyWith(color: AppColors.redColor),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(14),
         borderSide: BorderSide.none,

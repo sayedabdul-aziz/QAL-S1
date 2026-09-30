@@ -8,6 +8,7 @@ import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 import 'package:taskati/core/widgets/my_scaffold.dart';
 import 'package:taskati/features/home/page/home_screen.dart';
+import 'package:taskati/features/upload/upload_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (userHasData) {
           pushReplacement(context, const HomeScreen());
         } else {
-          pushReplacement(context, const HomeScreen());
+          pushReplacement(context, const UploadScreen());
         }
       }
     });

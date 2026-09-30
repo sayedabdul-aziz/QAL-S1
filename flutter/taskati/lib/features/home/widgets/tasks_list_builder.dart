@@ -1,23 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:taskati/core/models/task_model.dart';
+import 'package:taskati/core/services/local/hive_provider.dart';
 import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 
 class TasksListBuilder extends StatelessWidget {
-  const TasksListBuilder({super.key});
+  const TasksListBuilder({super.key, required this.selectedDate});
+
+  final String selectedDate;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemBuilder: (context, index) => TaskCard(),
-      separatorBuilder: (context, index) => const Gap(10),
-      itemCount: 5,
+    //* use ValueListenableBuilder to listen to changes in the box
+    return ValueListenableBuilder<Box<TaskModel>>(
+      valueListenable: HiveProvider.taskBox.listenable(),
+      builder: (context, box, widget) {
+        // fetch all tasks from box
+        var tasks = box.values.toList();
+
+        // filter tasks by selected date
+        tasks = tasks.where((task) => task.date == selectedDate).toList();
+
+        // display tasks in a list
+        return ListView.separated(
+          itemBuilder: (context, index) {
+            return TaskCard(task: tasks[index]);
+          },
+          separatorBuilder: (context, index) => const Gap(10),
+          itemCount: tasks.length,
+        );
+      },
     );
   }
 }
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({super.key});
+  const TaskCard({super.key, required this.task});
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +60,13 @@ class TaskCard extends StatelessWidget {
         crossAxisAlignment: .start,
         children: [
           Text(
-            'Task : Title of task',
+            task.title ?? '',
             style: TextStyles.body.copyWith(fontWeight: FontWeight.w600),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            'Description for task  Description for task  Description for task ',
+            task.description ?? '',
             style: TextStyles.caption1,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -59,7 +80,7 @@ class TaskCard extends StatelessWidget {
               ),
               const Gap(8),
               Text(
-                '8:00 PM : 10:00 PM',
+                "${task.startTime ?? ''}-${task.endTime ?? ''}",
                 style: TextStyles.caption2.copyWith(
                   color: AppColors.primaryColor100,
                 ),
@@ -72,7 +93,7 @@ class TaskCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  'Done',
+                  task.isCompleted == true ? 'Done' : 'InProgress',
                   style: TextStyles.caption2.copyWith(
                     color: AppColors.primaryColor,
                     fontWeight: FontWeight.w600,

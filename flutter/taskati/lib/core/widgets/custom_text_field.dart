@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -10,6 +11,7 @@ class CustomTextField extends StatelessWidget {
     this.prefixIcon,
     this.validator,
     this.controller,
+    this.maxLines = 1,
   });
 
   final TextEditingController? controller;
@@ -17,6 +19,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final Icon? prefixIcon;
   final String? Function(String?)? validator;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -26,26 +29,42 @@ class CustomTextField extends StatelessWidget {
         if (title != null) ...[
           Text(
             title ?? '',
-            style: TextStyles.body.copyWith(fontWeight: FontWeight.w500),
+            style: TextStyles.caption1.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColors.greyColor,
+            ),
           ),
           const Gap(8),
         ],
-        TextFormField(
-          controller: controller,
-          decoration: InputDecoration(
-            prefixIcon: prefixIcon,
-            hintText: hintText,
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.secondaryColor,
+                blurRadius: 20,
+                offset: const Offset(0, 0),
+              ),
+            ],
           ),
-          validator: validator,
-
-          onTapOutside: (event) =>
-              FocusManager.instance.primaryFocus?.unfocus(),
+          child: TextFormField(
+            controller: controller,
+            maxLines: maxLines,
+            minLines: 1,
+            decoration: InputDecoration(
+              prefixIcon: prefixIcon,
+              hintText: hintText,
+            ),
+            validator: validator,
+            onTapOutside: (event) =>
+                FocusManager.instance.primaryFocus?.unfocus(),
+          ),
         ),
       ],
     );
   }
 }
-
 
 //  list1 , list2
 
