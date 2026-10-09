@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskati/core/constants/app_images.dart';
-import 'package:taskati/core/styles/app_colors.dart';
+import 'package:taskati/core/functions/extensions.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 import 'package:taskati/core/widgets/custom_svg_image.dart';
 
@@ -24,15 +24,17 @@ class DateTimeField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: context.theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.secondaryColor,
-            blurRadius: 20,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        boxShadow: context.isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: context.colorScheme.secondary,
+                  blurRadius: 20,
+                  offset: const Offset(0, 3),
+                ),
+              ],
       ),
       child: Material(
         color: Colors.transparent,
@@ -47,7 +49,9 @@ class DateTimeField extends StatelessWidget {
           leading: CustomSvgImage(path: leading),
           title: Text(
             title,
-            style: TextStyles.caption2.copyWith(color: AppColors.greyColor),
+            style: TextStyles.caption2.copyWith(
+              color: context.colorScheme.tertiary,
+            ),
           ),
           subtitle: Text(
             errorMsg ?? subtitle,
@@ -57,11 +61,15 @@ class DateTimeField extends StatelessWidget {
                   : FontWeight.w500,
               fontSize: errorMsg != null ? 12 : 14,
               color: errorMsg != null
-                  ? AppColors.redColor
-                  : AppColors.blackColor,
+                  ? context.theme.colorScheme.error
+                  : context.colorScheme.onSurface,
             ),
           ),
-          trailing: CustomSvgImage(path: AppImages.downSvg),
+
+          trailing: CustomSvgImage(
+            path: AppImages.downSvg,
+            color: context.colorScheme.onSurface,
+          ),
           onTap: onTap,
         ),
       ),

@@ -11,6 +11,7 @@ class HiveProvider {
 
   static const String kName = 'name';
   static const String kImage = 'image';
+  static const String kIsDark = 'isDark';
 
   static Future<void> init() async {
     await Hive.initFlutter();
@@ -20,6 +21,8 @@ class HiveProvider {
   }
 
   static Box<TaskModel> get taskBox => _taskBox;
+
+  static Box get userBox => _userBox;
 
   static Future<void> cacheData(String key, dynamic value) async {
     await _userBox.put(key, value);

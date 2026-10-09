@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:taskati/core/services/local/hive_provider.dart';
 import 'package:taskati/core/styles/themes.dart';
 import 'package:taskati/features/spalsh/splash_screen.dart';
@@ -15,10 +16,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppThemes.lightTheme,
-      home: SplashScreen(),
+    return ValueListenableBuilder(
+      valueListenable: HiveProvider.userBox.listenable(),
+      builder: (context, value, child) {
+        bool isDark = HiveProvider.getData(HiveProvider.kIsDark) ?? false;
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+          theme: AppThemes.lightTheme,
+          darkTheme: AppThemes.darkTheme,
+          home: SplashScreen(),
+        );
+      },
     );
   }
 }
@@ -36,3 +45,6 @@ class MainApp extends StatelessWidget {
 // Caching:
 // 1) little DB (Primitive) => Shared Preferences / Secure Storage
 // 2) heavy DB (Objects) => Hive / SQLite
+
+//! Themes
+// light and dark palette => token (textPrimary, textSecondary, background)

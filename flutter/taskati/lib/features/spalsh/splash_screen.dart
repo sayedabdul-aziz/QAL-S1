@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskati/core/constants/app_images.dart';
+import 'package:taskati/core/functions/extensions.dart';
 import 'package:taskati/core/functions/naviagtions.dart';
 import 'package:taskati/core/services/local/hive_provider.dart';
-import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 import 'package:taskati/core/widgets/my_scaffold.dart';
 import 'package:taskati/features/home/page/home_screen.dart';
@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
               'It\'s time to get organized',
               style: TextStyles.body.copyWith(
                 fontWeight: FontWeight.normal,
-                color: AppColors.greyColor,
+                color: context.colorScheme.tertiary,
               ),
             ),
           ],

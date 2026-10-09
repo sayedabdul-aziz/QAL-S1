@@ -1,8 +1,11 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:taskati/core/functions/extensions.dart';
+import 'package:taskati/core/models/task_status_enum.dart';
 import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
+import 'package:taskati/features/home/widgets/daily_progress.dart';
 import 'package:taskati/features/home/widgets/tasks_list_builder.dart';
 
 class TasksTabsBuilder extends StatefulWidget {
@@ -14,9 +17,7 @@ class TasksTabsBuilder extends StatefulWidget {
 
 class _TasksTabsBuilderState extends State<TasksTabsBuilder> {
   int currentIndex = 0;
-  String selectedDate = DateFormat(
-    'dd MMM, yyyy',
-  ).format(DateTime.now()); // 2020
+  String selectedDate = DateFormat('dd MMM, yyyy').format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -25,13 +26,17 @@ class _TasksTabsBuilderState extends State<TasksTabsBuilder> {
         child: Column(
           spacing: 20,
           children: [
+            DailyProgress(selectedDate: selectedDate),
             DatePicker(
               DateTime.now().subtract(const Duration(days: 3)),
               height: 90,
               width: 70,
               initialSelectedDate: DateTime.now(),
-              selectionColor: AppColors.primaryColor,
+              selectionColor: context.theme.primaryColor,
               selectedTextColor: Colors.white,
+              dayTextStyle: TextStyles.body,
+              dateTextStyle: TextStyles.body,
+              monthTextStyle: TextStyles.body,
               onDateChange: (date) {
                 setState(() {
                   selectedDate = DateFormat('dd MMM, yyyy').format(date);
@@ -41,7 +46,7 @@ class _TasksTabsBuilderState extends State<TasksTabsBuilder> {
             TabBar(
               dividerHeight: 0,
               indicator: BoxDecoration(
-                color: AppColors.primaryColor,
+                color: context.theme.primaryColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               indicatorPadding: const EdgeInsets.all(0),
@@ -77,9 +82,18 @@ class _TasksTabsBuilderState extends State<TasksTabsBuilder> {
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  TasksListBuilder(selectedDate: selectedDate),
-                  TasksListBuilder(selectedDate: selectedDate),
-                  TasksListBuilder(selectedDate: selectedDate),
+                  TasksListBuilder(
+                    selectedDate: selectedDate,
+                    taskStatus: TaskStatusEnum.all,
+                  ),
+                  TasksListBuilder(
+                    selectedDate: selectedDate,
+                    taskStatus: TaskStatusEnum.inProgress,
+                  ),
+                  TasksListBuilder(
+                    selectedDate: selectedDate,
+                    taskStatus: TaskStatusEnum.completed,
+                  ),
                 ],
               ),
             ),
@@ -102,7 +116,9 @@ class CustomTab extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
-        color: isSelected ? AppColors.primaryColor : AppColors.secondaryColor,
+        color: isSelected
+            ? context.theme.primaryColor
+            : context.colorScheme.secondary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
@@ -110,7 +126,9 @@ class CustomTab extends StatelessWidget {
           label,
           style: TextStyles.caption1.copyWith(
             fontWeight: FontWeight.w600,
-            color: isSelected ? AppColors.whiteColor : AppColors.primaryColor,
+            color: isSelected
+                ? DarkPalette.textPrimary
+                : context.theme.primaryColor,
           ),
         ),
       ),

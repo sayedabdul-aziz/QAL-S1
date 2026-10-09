@@ -61,6 +61,14 @@ class _HomeHeaderState extends State<HomeHeader> {
             ],
           ),
         ),
+        const Gap(10),
+        IconButton(
+          icon: const Icon(Icons.dark_mode),
+          onPressed: () {
+            bool isDark = HiveProvider.getData(HiveProvider.kIsDark) ?? false;
+            HiveProvider.cacheData(HiveProvider.kIsDark, !isDark);
+          },
+        ),
       ],
     );
   }

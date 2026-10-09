@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taskati/core/constants/app_images.dart';
+import 'package:taskati/core/functions/extensions.dart';
 import 'package:taskati/core/models/task_model.dart';
 import 'package:taskati/core/services/local/hive_provider.dart';
 import 'package:taskati/core/widgets/custom_svg_image.dart';
@@ -9,14 +10,17 @@ import 'package:taskati/core/widgets/main_button.dart';
 import 'package:taskati/core/widgets/my_scaffold.dart';
 import 'package:taskati/features/create_task/widgets/date_time_field.dart';
 
-class CreateTaskScreen extends StatefulWidget {
-  const CreateTaskScreen({super.key});
+class CreateAndEditTaskScreen extends StatefulWidget {
+  const CreateAndEditTaskScreen({super.key, this.task});
+
+  final TaskModel? task;
 
   @override
-  State<CreateTaskScreen> createState() => _CreateTaskScreenState();
+  State<CreateAndEditTaskScreen> createState() =>
+      _CreateAndEditTaskScreenState();
 }
 
-class _CreateTaskScreenState extends State<CreateTaskScreen> {
+class _CreateAndEditTaskScreenState extends State<CreateAndEditTaskScreen> {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -26,6 +30,19 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   String? selectedEndTime;
 
   bool isClicked = false;
+
+  bool get isEdit => widget.task != null;
+
+  @override
+  void initState() {
+    titleController.text = widget.task?.title ?? '';
+    descriptionController.text = widget.task?.description ?? '';
+    selectedDate = widget.task?.date ?? 'Select Date';
+    selectedStartTime = widget.task?.startTime ?? 'Select Time';
+    selectedEndTime = widget.task?.endTime ?? 'Select Time';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MyScaffold(
@@ -33,10 +50,14 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
         leading: Center(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: CustomSvgImage(path: AppImages.backSvg, width: 30),
+            child: CustomSvgImage(
+              path: AppImages.backSvg,
+              width: 30,
+              color: context.colorScheme.onSurface,
+            ),
           ),
         ),
-        title: const Text('Create Task'),
+        title: Text(isEdit ? 'Edit Task' : 'Create Task'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -138,15 +159,21 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: MainButton(
-            text: 'Create Task',
+            text: isEdit ? 'Save Changes' : 'Create Task',
             onPressed: () async {
               setState(() {
                 isClicked = true;
               });
               if (formKey.currentState!.validate()) {
-                var key =
-                    DateTime.now().millisecondsSinceEpoch.toString() +
-                    titleController.text;
+                String key;
+                if (isEdit) {
+                  key = widget.task?.id ?? '';
+                } else {
+                  key =
+                      DateTime.now().millisecondsSinceEpoch.toString() +
+                      titleController.text;
+                }
+
                 var task = TaskModel(
                   id: key,
                   title: titleController.text,
@@ -167,3 +194,5 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     );
   }
 }
+
+Map<String, dynamic> data = {"ahmed": 14, "mohamed": 13};

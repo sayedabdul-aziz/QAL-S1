@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskati/core/functions/extensions.dart';
 import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 
@@ -20,7 +21,7 @@ class MainButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: context.theme.primaryColor,
         minimumSize: Size(width ?? double.infinity, height ?? 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ),
@@ -29,7 +30,7 @@ class MainButton extends StatelessWidget {
         text,
         style: TextStyles.subtitle.copyWith(
           fontWeight: FontWeight.w600,
-          color: AppColors.whiteColor,
+          color: DarkPalette.textPrimary,
         ),
       ),
     );

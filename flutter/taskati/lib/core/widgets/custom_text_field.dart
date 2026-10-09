@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:taskati/core/styles/app_colors.dart';
+import 'package:taskati/core/functions/extensions.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -31,7 +31,7 @@ class CustomTextField extends StatelessWidget {
             title ?? '',
             style: TextStyles.caption1.copyWith(
               fontWeight: FontWeight.w500,
-              color: AppColors.greyColor,
+              color: context.colorScheme.tertiary,
             ),
           ),
           const Gap(8),
@@ -40,13 +40,15 @@ class CustomTextField extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(14),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.secondaryColor,
-                blurRadius: 20,
-                offset: const Offset(0, 0),
-              ),
-            ],
+            boxShadow: context.isDark
+                ? []
+                : [
+                    BoxShadow(
+                      color: context.colorScheme.secondary,
+                      blurRadius: 20,
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
           ),
           child: TextFormField(
             controller: controller,

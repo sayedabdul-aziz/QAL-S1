@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taskati/core/constants/app_images.dart';
+import 'package:taskati/core/functions/extensions.dart';
 import 'package:taskati/core/functions/naviagtions.dart';
 import 'package:taskati/core/functions/toast.dart';
 import 'package:taskati/core/services/local/hive_provider.dart';
-import 'package:taskati/core/styles/app_colors.dart';
 import 'package:taskati/core/styles/text_styles.dart';
 import 'package:taskati/core/widgets/custom_text_field.dart';
 import 'package:taskati/core/widgets/main_button.dart';
@@ -117,8 +117,11 @@ class _UploadScreenState extends State<UploadScreen> {
                   },
                   child: CircleAvatar(
                     radius: 18,
-                    backgroundColor: AppColors.whiteColor,
-                    child: Icon(Icons.delete, color: AppColors.redColor),
+                    backgroundColor: context.theme.colorScheme.inversePrimary,
+                    child: Icon(
+                      Icons.delete,
+                      color: context.theme.colorScheme.error,
+                    ),
                   ),
                 ),
               ),
@@ -129,7 +132,7 @@ class _UploadScreenState extends State<UploadScreen> {
             child: Image.asset(
               AppImages.userEmpty,
               height: 180,
-              color: AppColors.secondaryColor,
+              color: context.colorScheme.secondary,
             ),
           ),
         const Gap(32),
