@@ -5,6 +5,7 @@ class TaskModel {
   String? date;
   String? startTime;
   String? endTime;
+  int? priority;
   bool? isCompleted;
 
   TaskModel({
@@ -14,6 +15,7 @@ class TaskModel {
     this.date,
     this.startTime,
     this.endTime,
+    this.priority,
     this.isCompleted,
   });
 
@@ -24,6 +26,7 @@ class TaskModel {
     String? date,
     String? startTime,
     String? endTime,
+    int? priority,
     bool? isCompleted,
   }) {
     return TaskModel(
@@ -33,6 +36,7 @@ class TaskModel {
       date: date ?? this.date,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
+      priority: priority ?? this.priority,
       isCompleted: isCompleted ?? this.isCompleted,
     );
   }

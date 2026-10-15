@@ -18,6 +18,6 @@ extension Spacing on num {
 
 extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
-  ColorScheme get colorScheme => Theme.of(this).colorScheme;
+  ColorScheme get colorScheme => theme.colorScheme;
   bool get isDark => HiveProvider.getData(HiveProvider.kIsDark) ?? false;
 }

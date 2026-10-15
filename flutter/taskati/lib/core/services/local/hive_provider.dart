@@ -25,11 +25,15 @@ class HiveProvider {
   static Box get userBox => _userBox;
 
   static Future<void> cacheData(String key, dynamic value) async {
-    await _userBox.put(key, value);
+    await _userBox.put(key, value); // if new key (add) , if old key (update)
   }
 
   static dynamic getData(String key) {
     return _userBox.get(key);
+  }
+
+  static Future<void> deleteData(String key) async {
+    await _userBox.delete(key);
   }
 
   static Future<void> cacheTask(String key, TaskModel value) async {
@@ -38,6 +42,10 @@ class HiveProvider {
 
   static TaskModel? getTask(String key) {
     return _taskBox.get(key);
+  }
+
+  static Future<void> deleteTask(String key) async {
+    await _taskBox.delete(key);
   }
 
   static Future<void> cacheUserData({
