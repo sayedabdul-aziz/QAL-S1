@@ -83,10 +83,8 @@ class AppThemes {
       backgroundColor: Colors.transparent,
       elevation: 0,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: LightPalette.primaryColor,
-      unselectedItemColor: LightPalette.textPrimary,
-      selectedLabelStyle: TextStyles.caption1.copyWith(),
-      unselectedLabelStyle: TextStyles.caption1.copyWith(),
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
     ),
   );
 

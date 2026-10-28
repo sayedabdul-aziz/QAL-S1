@@ -1,13 +1,7 @@
-import 'package:bookia/core/routes/route_names.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/dio/dio_provider.dart';
 import 'package:bookia/core/styles/themes.dart';
-import 'package:bookia/features/auth/presentation/login_register/cubit/auth_cubit.dart';
-import 'package:bookia/features/auth/presentation/login_register/page/login_screen.dart';
-import 'package:bookia/features/auth/presentation/login_register/page/register_screen.dart';
-import 'package:bookia/features/spalsh/splash_screen.dart';
-import 'package:bookia/features/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,21 +14,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteNames.splash,
-      routes: {
-        RouteNames.splash: (context) => const SplashScreen(),
-        RouteNames.welcome: (context) => const WelcomeScreen(),
-        RouteNames.login: (context) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: LoginScreen(),
-        ),
-        RouteNames.register: (context) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: RegisterScreen(),
-        ),
-      },
+      routerConfig: Routes.router,
       title: 'Bookia',
       theme: AppThemes.lightTheme,
     );
@@ -63,3 +45,5 @@ class MainApp extends StatelessWidget {
 // Feature/
 // Data (Models/ Repositories)
 // Presentation (Cubit/ Page/ Widgets)
+
+// UI <=> Cubit(States) <=> Data(Repo)
