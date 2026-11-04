@@ -1,5 +1,5 @@
 import 'package:bookia/core/constants/app_images.dart';
-import 'package:bookia/core/widgets/custom_svg_image.dart';
+import 'package:bookia/components/custom_svg_image.dart';
 import 'package:flutter/material.dart';
 
 class CustomPasswordField extends StatefulWidget {

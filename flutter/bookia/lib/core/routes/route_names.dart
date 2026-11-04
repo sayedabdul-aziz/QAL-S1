@@ -5,4 +5,7 @@ class RouteNames {
   static const String register = '/register';
 
   static const String main = '/main';
+
+  static const String details = '/details';
+  static const String search = '/search';
 }

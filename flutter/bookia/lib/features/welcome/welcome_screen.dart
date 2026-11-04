@@ -3,8 +3,8 @@ import 'package:bookia/core/routes/naviagtions.dart';
 import 'package:bookia/core/routes/route_names.dart';
 import 'package:bookia/core/styles/app_colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/core/widgets/custom_svg_image.dart';
-import 'package:bookia/core/widgets/main_button.dart';
+import 'package:bookia/components/custom_svg_image.dart';
+import 'package:bookia/components/buttons/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

@@ -1,11 +1,13 @@
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/services/dio/dio_provider.dart';
+import 'package:bookia/core/services/local/shared_pref.dart';
 import 'package:bookia/core/styles/themes.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioProvider.init();
+  await SharedPref.init();
   runApp(const MainApp());
 }
 
@@ -47,3 +49,7 @@ class MainApp extends StatelessWidget {
 // Presentation (Cubit/ Page/ Widgets)
 
 // UI <=> Cubit(States) <=> Data(Repo)
+
+// Caching Flow (User Data)
+// After Auth => Caching User Data
+// When Startup App => check if user has valid token and get latest user data

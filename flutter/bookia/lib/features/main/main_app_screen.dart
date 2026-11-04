@@ -1,8 +1,14 @@
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/styles/app_colors.dart';
-import 'package:bookia/core/widgets/custom_svg_image.dart';
+import 'package:bookia/components/custom_svg_image.dart';
+import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/page/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Person p = Person()..name = 'ahmed'.. display();
+// p.name = '';
+// p.display();
 
 class MainAppScreen extends StatefulWidget {
   const MainAppScreen({super.key});
@@ -12,10 +18,19 @@ class MainAppScreen extends StatefulWidget {
 }
 
 class _MainAppScreenState extends State<MainAppScreen> {
+  List<Widget> pages = [
+    BlocProvider(
+      create: (context) => HomeCubit()..getHomeData(),
+      child: HomeScreen(),
+    ),
+    HomeScreen(),
+    HomeScreen(),
+    HomeScreen(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomeScreen(),
+      body: pages[0],
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
