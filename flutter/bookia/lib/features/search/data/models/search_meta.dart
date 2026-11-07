@@ -4,12 +4,7 @@ class SearchMeta {
   final int? currentPage;
   final int? lastPage;
 
-  const SearchMeta({
-    this.total,
-    this.perPage,
-    this.currentPage,
-    this.lastPage,
-  });
+  const SearchMeta({this.total, this.perPage, this.currentPage, this.lastPage});
 
   factory SearchMeta.fromJson(Map<String, dynamic> json) => SearchMeta(
     total: json['total'] as int?,

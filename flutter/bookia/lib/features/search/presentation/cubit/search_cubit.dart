@@ -18,6 +18,8 @@ class SearchCubit extends Cubit<SearchState> {
   int _currentPage = 1;
   int _lastPage = 1;
 
+  int totalProducts = 0;
+
   Timer? _debounceTimer;
   static const _debounceDuration = Duration(milliseconds: 500);
 
@@ -64,6 +66,7 @@ class SearchCubit extends Cubit<SearchState> {
     if (response?.data?.products != null) {
       products.addAll(response!.data!.products!);
       _lastPage = response.data!.meta?.lastPage ?? 1;
+      totalProducts = response.data!.meta?.total ?? 0;
 
       if (products.isEmpty) {
         emit(SearchEmptyState());

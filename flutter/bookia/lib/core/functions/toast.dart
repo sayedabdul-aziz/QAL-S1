@@ -5,10 +5,10 @@ import 'package:bookia/core/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-void showErrorDialog(BuildContext context, String message) {
+void showMyToast(BuildContext context, String message, {bool isError = true}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      backgroundColor: Colors.red,
+      backgroundColor: isError ? Colors.red : LightPalette.primaryColor,
       behavior: SnackBarBehavior.floating,
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),

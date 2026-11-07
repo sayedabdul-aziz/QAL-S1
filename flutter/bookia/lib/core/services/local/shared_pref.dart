@@ -8,9 +8,28 @@ class SharedPref {
 
   static const String kUserData = 'user';
   static const String kToken = 'token';
+  static const String kWishlist = 'wishlist';
 
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
+  }
+
+  static void setWishlist(List<int> wishlistIds) {
+    // List<int> => List<String>
+    // cache ids as strings
+    List<String> ids = [];
+    for (var id in wishlistIds) {
+      ids.add(id.toString());
+    }
+    prefs.setStringList(kWishlist, ids);
+  }
+
+  static List<int> getWishlist() {
+    // List<String> => List<int>
+    // fetch ids as integers
+    var ids = prefs.getStringList(kWishlist);
+    if (ids == null) return [];
+    return ids.map((e) => int.tryParse(e) ?? 0).toList();
   }
 
   static void setToken(String? token) {

@@ -1,4 +1,5 @@
 import 'package:bookia/core/services/dio/apis.dart';
+import 'package:chili_debug_view/chili_debug_view.dart';
 import 'package:dio/dio.dart';
 
 class DioProvider {
@@ -14,6 +15,7 @@ class DioProvider {
         },
       ),
     );
+    dio.interceptors.add(NetworkLoggerInterceptor());
   }
 
   static Future<Response> postApi({

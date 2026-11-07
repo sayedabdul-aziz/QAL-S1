@@ -1,13 +1,13 @@
+import 'package:bookia/components/buttons/main_button.dart';
+import 'package:bookia/components/input/custom_password_field.dart';
+import 'package:bookia/components/input/custom_text_field.dart';
+import 'package:bookia/components/main_app_bar.dart';
 import 'package:bookia/core/constants/app_design.dart';
 import 'package:bookia/core/functions/toast.dart';
 import 'package:bookia/core/routes/naviagtions.dart';
 import 'package:bookia/core/routes/route_names.dart';
 import 'package:bookia/core/styles/app_colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/components/input/custom_password_field.dart';
-import 'package:bookia/components/input/custom_text_field.dart';
-import 'package:bookia/components/main_app_bar.dart';
-import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/features/auth/presentation/login_register/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/login_register/cubit/auth_states.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class RegisterScreen extends StatelessWidget {
           pushToBase(context, RouteNames.main);
         } else if (state is AuthErrorState) {
           pop(context);
-          showErrorDialog(context, state.error);
+          showMyToast(context, state.error);
         } else if (state is AuthLoadingState) {
           showLoadingDialog(context);
         }

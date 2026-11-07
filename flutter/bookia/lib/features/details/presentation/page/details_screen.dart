@@ -1,11 +1,10 @@
-import 'package:bookia/components/custom_svg_image.dart';
 import 'package:bookia/components/main_app_bar.dart';
 import 'package:bookia/components/shimmer/shimmer.dart';
-import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/styles/app_colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/features/details/presentation/cubit/details_cubit.dart';
 import 'package:bookia/features/details/presentation/cubit/details_state.dart';
+import 'package:bookia/features/wishlist/presentation/wishlist_action/widgets/wishlist_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -30,12 +29,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: CustomSvgImage(path: AppImages.bookmarkSvg),
-          ),
-        ],
+        actions: [WishlistAction(productId: widget.productId)],
       ),
       body: BlocBuilder<DetailsCubit, DetailsState>(
         builder: (context, state) {

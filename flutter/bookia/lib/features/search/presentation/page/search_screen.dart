@@ -8,6 +8,7 @@ import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/features/home/data/models/best_seller_books_response/product.dart';
 import 'package:bookia/features/search/presentation/cubit/search_cubit.dart';
 import 'package:bookia/features/search/presentation/cubit/search_state.dart';
+import 'package:bookia/features/wishlist/presentation/wishlist_action/widgets/wishlist_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -109,27 +110,42 @@ class _SearchScreenState extends State<SearchScreen> {
                 final cubit = context.read<SearchCubit>();
                 final products = cubit.products;
 
-                return ListView.separated(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.only(
-                    left: AppDesign.CONTENT_PADDING,
-                    right: AppDesign.CONTENT_PADDING,
-                    bottom: 24,
-                  ),
-                  itemCount:
-                      products.length +
-                      (state is SearchLoadingMoreState ? 1 : 0),
-                  separatorBuilder: (_, _) => const Gap(12),
-                  itemBuilder: (context, index) {
-                    if (index == products.length) {
-                      // bottom pagination spinner
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    }
-                    return _SearchBookCard(product: products[index]);
-                  },
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        "Total: ${cubit.totalProducts}",
+                        style: TextStyles.body,
+                      ),
+                    ),
+
+                    Expanded(
+                      child: ListView.separated(
+                        controller: _scrollController,
+                        padding: const EdgeInsets.only(
+                          left: AppDesign.CONTENT_PADDING,
+                          right: AppDesign.CONTENT_PADDING,
+                          bottom: 24,
+                        ),
+                        itemCount:
+                            products.length +
+                            (state is SearchLoadingMoreState ? 1 : 0),
+                        separatorBuilder: (_, _) => const Gap(12),
+                        itemBuilder: (context, index) {
+                          if (index == products.length) {
+                            // bottom pagination spinner
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: Center(child: CircularProgressIndicator()),
+                            );
+                          }
+                          return _SearchBookCard(product: products[index]);
+                        },
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
@@ -228,45 +244,25 @@ class _SearchBookCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── cover image with bookmark overlay ──
-            Stack(
-              children: [
-                Hero(
-                  tag: 'book-cover-${product.id}',
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      product.image ?? '',
-                      width: 100,
-                      height: 120,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, _, _) => Container(
-                        width: 100,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          color: LightPalette.borderColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 6,
-                  right: 6,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
+            Hero(
+              tag: 'book-cover-${product.id}',
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  product.image ?? '',
+                  width: 100,
+                  height: 120,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, _, _) => Container(
+                    width: 100,
+                    height: 120,
                     decoration: BoxDecoration(
-                      color: LightPalette.whiteColor.withValues(alpha: 0.9),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Icon(
-                      Icons.bookmark_border_rounded,
-                      size: 16,
-                      color: LightPalette.textPrimary,
+                      color: LightPalette.borderColor,
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
 
             const Gap(12),
@@ -279,15 +275,23 @@ class _SearchBookCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      product.name ?? '',
-                      style: TextStyles.subtitle.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            product.name ?? '',
+                            style: TextStyles.subtitle.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const Gap(8),
+                        // wishlist action
+                        WishlistSmallAction(productId: product.id ?? 0),
+                      ],
                     ),
-
                     // price + buy
                     Row(
                       children: [

@@ -9,12 +9,16 @@ import 'package:bookia/features/search/presentation/cubit/search_cubit.dart';
 import 'package:bookia/features/search/presentation/page/search_screen.dart';
 import 'package:bookia/features/spalsh/splash_screen.dart';
 import 'package:bookia/features/welcome/welcome_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class Routes {
   static final GoRouter router = GoRouter(
     initialLocation: RouteNames.splash,
+    navigatorKey: navigatorKey,
     routes: [
       GoRoute(
         path: RouteNames.splash,

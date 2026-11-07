@@ -9,6 +9,7 @@ class Product {
   int? bestSeller;
   String? image;
   String? category;
+  
 
   Product({
     this.id,
