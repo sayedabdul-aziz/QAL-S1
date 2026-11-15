@@ -8,4 +8,6 @@ class RouteNames {
 
   static const String details = '/details';
   static const String search = '/search';
+
+  static const String placeOrder = '/place_order';
 }

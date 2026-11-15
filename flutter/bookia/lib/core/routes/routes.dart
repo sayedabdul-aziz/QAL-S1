@@ -5,6 +5,8 @@ import 'package:bookia/features/auth/presentation/login_register/page/register_s
 import 'package:bookia/features/details/presentation/cubit/details_cubit.dart';
 import 'package:bookia/features/details/presentation/page/details_screen.dart';
 import 'package:bookia/features/main/main_app_screen.dart';
+import 'package:bookia/features/order/presentation/place_order/cubit/place_order_cubit.dart';
+import 'package:bookia/features/order/presentation/place_order/page/place_order_screen.dart';
 import 'package:bookia/features/search/presentation/cubit/search_cubit.dart';
 import 'package:bookia/features/search/presentation/page/search_screen.dart';
 import 'package:bookia/features/spalsh/splash_screen.dart';
@@ -71,6 +73,15 @@ class Routes {
         builder: (context, state) => BlocProvider(
           create: (_) => SearchCubit(),
           child: const SearchScreen(),
+        ),
+      ),
+
+      GoRoute(
+        path: RouteNames.placeOrder,
+        name: RouteNames.placeOrder,
+        builder: (context, state) => BlocProvider(
+          create: (context) => PlaceOrderCubit()..getGovernorates(),
+          child: PlaceOrderScreen(total: state.extra as String),
         ),
       ),
     ],

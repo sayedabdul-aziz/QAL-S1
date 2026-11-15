@@ -64,6 +64,7 @@ class _WishlistBooksState extends State<WishlistBooks> {
             return BookCard(
               product: books[index],
               onItemRemoved: (id) {
+                // remove item from list and update UI (offline)
                 books.removeWhere((element) => element.id == id);
                 setState(() {});
               },

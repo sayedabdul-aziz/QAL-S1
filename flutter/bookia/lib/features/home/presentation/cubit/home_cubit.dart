@@ -15,9 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<Product> bestSellerBooks = [];
 
   Future<void> getHomeData() async {
-    emit(HomeLoadingState());
-
-    await Future.delayed(const Duration(seconds: 2));
+    if (!isClosed) emit(HomeLoadingState());
 
     // run apis in parallel
     var futures = await Future.wait([
@@ -31,9 +29,9 @@ class HomeCubit extends Cubit<HomeState> {
     if (slidersRes != null || bestSellerBooksRes != null) {
       sliders = slidersRes?.data?.sliders ?? [];
       bestSellerBooks = bestSellerBooksRes?.data?.products ?? [];
-      emit(HomeSuccessState());
+      if (!isClosed) emit(HomeSuccessState());
     } else {
-      emit(HomeErrorState());
+      if (!isClosed) emit(HomeErrorState());
     }
   }
 }

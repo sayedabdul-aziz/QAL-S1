@@ -1,6 +1,8 @@
 import 'package:bookia/components/custom_svg_image.dart';
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/styles/app_colors.dart';
+import 'package:bookia/features/cart/presentation/cart/cubit/cart_cubit.dart';
+import 'package:bookia/features/cart/presentation/cart/page/cart_screen.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/page/home_screen.dart';
 import 'package:bookia/features/wishlist/presentation/wishlist/cubit/wishlist_cubit.dart';
@@ -31,7 +33,10 @@ class _MainAppScreenState extends State<MainAppScreen> {
       create: (context) => WishlistCubit()..getWishlist(),
       child: WishlistScreen(),
     ),
-    HomeScreen(),
+    BlocProvider(
+      create: (context) => CartCubit()..getCart(),
+      child: CartScreen(),
+    ),
     HomeScreen(),
   ];
   @override

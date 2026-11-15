@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bookia/features/auth/data/models/auth_response/user.dart';
+import 'package:bookia/features/cart/data/models/cart_response/cart_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
@@ -9,6 +10,7 @@ class SharedPref {
   static const String kUserData = 'user';
   static const String kToken = 'token';
   static const String kWishlist = 'wishlist';
+  static const String kCart = 'kCart';
 
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
@@ -30,6 +32,23 @@ class SharedPref {
     var ids = prefs.getStringList(kWishlist);
     if (ids == null) return [];
     return ids.map((e) => int.tryParse(e) ?? 0).toList();
+  }
+
+  static void setCartItems(List<CartItem> cartItems) {
+    // List<CartItem>(toJson) => List<Map> => JSON String
+    var jsonList = cartItems.map((e) => e.toJson()).toList();
+    var jsonString = jsonEncode(jsonList);
+    setString(kCart, jsonString);
+  }
+
+  static List<CartItem> getCartItems() {
+    // JSON String => List<Map>(decode) => List<CartItem>(fromJson)
+    var cachedString = getString(kCart);
+    if (cachedString == null) return [];
+    var jsonList = jsonDecode(cachedString) as List<dynamic>;
+    return jsonList
+        .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
   static void setToken(String? token) {

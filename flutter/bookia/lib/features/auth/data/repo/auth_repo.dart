@@ -10,7 +10,6 @@ import 'package:dio/src/response.dart';
 class AuthRepo {
   static Future<AuthResponse?> login(AuthParams authParams) async {
     try {
-      log(authParams.toJson().toString());
       var response = await DioProvider.postApi(
         endpoint: Apis.login,
         data: authParams.toJson(),

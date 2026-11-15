@@ -27,8 +27,10 @@ class WishlistAction extends StatelessWidget {
               color: LightPalette.primaryColor,
             ),
             onPressed: () {
+              if (isInWishlist) {
+                onRemoved?.call(productId);
+              }
               cubit.addOrRemoveFromWishlist(productId);
-              onRemoved?.call(productId);
             },
           );
         },

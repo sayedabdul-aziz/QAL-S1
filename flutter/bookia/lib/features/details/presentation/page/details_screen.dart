@@ -2,6 +2,7 @@ import 'package:bookia/components/main_app_bar.dart';
 import 'package:bookia/components/shimmer/shimmer.dart';
 import 'package:bookia/core/styles/app_colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/features/cart/presentation/cart_action/widgets/cart_action.dart';
 import 'package:bookia/features/details/presentation/cubit/details_cubit.dart';
 import 'package:bookia/features/details/presentation/cubit/details_state.dart';
 import 'package:bookia/features/wishlist/presentation/wishlist_action/widgets/wishlist_action.dart';
@@ -131,6 +132,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
               // ── bottom bar ───────────────────────────────────────────
               _BottomBar(
+                productId: widget.productId,
                 price:
                     product?.priceAfterDiscount?.toString() ??
                     product?.price ??
@@ -224,9 +226,10 @@ class _DetailsShimmer extends StatelessWidget {
 // ── bottom bar ───────────────────────────────────────────────────────────────
 
 class _BottomBar extends StatelessWidget {
-  const _BottomBar({required this.price});
+  const _BottomBar({required this.price, required this.productId});
 
   final String price;
+  final int productId;
 
   @override
   Widget build(BuildContext context) {
@@ -242,29 +245,8 @@ class _BottomBar extends StatelessWidget {
               color: LightPalette.textPrimary,
             ),
           ),
-          SizedBox(
-            height: 52,
-            width: MediaQuery.of(context).size.width / 2,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: LightPalette.textPrimary,
-                foregroundColor: LightPalette.whiteColor,
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                elevation: 0,
-              ),
-              child: Text(
-                'Add To Cart',
-                style: TextStyles.body.copyWith(
-                  color: LightPalette.whiteColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
+          SizedBox(width: 60),
+          CartAction(productId: productId, price: double.tryParse(price) ?? 0),
         ],
       ),
     );
