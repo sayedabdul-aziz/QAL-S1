@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:se7ety/core/constants/app_images.dart';
+import 'package:se7ety/core/presentation/enum/user_enum.dart';
+import 'package:se7ety/core/routes/navigation.dart';
+import 'package:se7ety/core/routes/routes.dart';
 import 'package:se7ety/core/utils/colors.dart';
 import 'package:se7ety/core/utils/text_styles.dart';
 
@@ -67,18 +70,18 @@ class WelcomeScreen extends StatelessWidget {
                   _buildUserButton(
                     title: 'دكتور',
                     onTap: () {
-                      // pushTo(context, Routes.login, extra: UserTypeEnum.doctor);
+                      pushTo(context, Routes.login, extra: UserTypeEnum.doctor);
                     },
                   ),
                   const SizedBox(height: 15),
                   _buildUserButton(
                     title: 'مريض',
                     onTap: () {
-                      // pushTo(
-                      //   context,
-                      //   Routes.login,
-                      //   extra: UserTypeEnum.patient,
-                      // );
+                      pushTo(
+                        context,
+                        Routes.login,
+                        extra: UserTypeEnum.patient,
+                      );
                     },
                   ),
                 ],
