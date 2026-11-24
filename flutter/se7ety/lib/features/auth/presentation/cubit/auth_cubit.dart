@@ -35,7 +35,12 @@ class AuthCubit extends Cubit<AuthState> {
       UserTypeEnum userType = UserTypeEnum.fromString(
         userModel?.userType ?? '',
       );
-      emit(AuthSuccessState(userType: userType));
+      emit(
+        AuthSuccessState(
+          userType: userType,
+          isCompletedProfile: userModel?.isCompletedProfile == true,
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(AuthFailureState('لا يوجد مستخدم بهذا الايميل'));

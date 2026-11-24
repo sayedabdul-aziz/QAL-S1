@@ -8,7 +8,8 @@ class AuthLoadingState extends AuthState {}
 
 class AuthSuccessState extends AuthState {
   final UserTypeEnum userType;
-  AuthSuccessState({required this.userType});
+  final bool isCompletedProfile;
+  AuthSuccessState({required this.userType, this.isCompletedProfile = false});
 }
 
 class AuthFailureState extends AuthState {

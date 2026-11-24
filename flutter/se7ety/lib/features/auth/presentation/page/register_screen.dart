@@ -39,11 +39,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           showMyDialog(context, state.message);
         } else if (state is AuthSuccessState) {
           Navigator.pop(context);
-          // if (state.userType == UserTypeEnum.doctor) {
-          //   pushToBase(context, Routes.doctorRegistration);
-          // } else {
-          //   pushToBase(context, Routes.mainPatient);
-          // }
+          if (state.userType == UserTypeEnum.doctor) {
+            pushToBase(context, Routes.doctorRegistration);
+          } else {
+            pushToBase(context, Routes.mainPatient);
+          }
         }
       },
       child: Scaffold(

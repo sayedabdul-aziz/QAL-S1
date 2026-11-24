@@ -6,8 +6,11 @@ import 'package:se7ety/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:se7ety/features/auth/presentation/page/login_screen.dart';
 import 'package:se7ety/features/auth/presentation/page/register_screen.dart';
 import 'package:se7ety/features/intro/onboarding/onboarding_screen.dart';
+import 'package:se7ety/features/intro/splash/cubit/splash_cubit.dart';
 import 'package:se7ety/features/intro/splash/splash_screen.dart';
 import 'package:se7ety/features/intro/welcome/welcome_screen.dart';
+import 'package:se7ety/features/update_doctor/cubit/update_doctor_profile_cubit.dart';
+import 'package:se7ety/features/update_doctor/page/doctor_registeration_screen.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -31,7 +34,13 @@ class Routes {
   static final routes = GoRouter(
     navigatorKey: navigatorKey,
     routes: [
-      GoRoute(path: splash, builder: (context, state) => const SplashScreen()),
+      GoRoute(
+        path: splash,
+        builder: (context, state) => BlocProvider(
+          create: (context) => SplashCubit()..checkUserFlow(),
+          child: const SplashScreen(),
+        ),
+      ),
       GoRoute(
         path: onboarding,
         builder: (context, state) => const OnboardingScreen(),
@@ -52,6 +61,13 @@ class Routes {
         builder: (context, state) => BlocProvider(
           create: (context) => AuthCubit(),
           child: RegisterScreen(userType: state.extra as UserTypeEnum),
+        ),
+      ),
+      GoRoute(
+        path: doctorRegistration,
+        builder: (context, state) => BlocProvider(
+          create: (context) => UpdateDoctorProfileCubit(),
+          child: UpdateDoctorProfileScreen(),
         ),
       ),
     ],

@@ -4,11 +4,13 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 
 Future<String?> uploadImageToCloudinary(File imageFile) async {
+  final cloudName = 'dup0vzih4';
+  final uploadPreset = 'se7ety';
   try {
     final response = await Dio().post(
-      'https://api.cloudinary.com/v1_1/dup0vzih4/image/upload',
+      'https://api.cloudinary.com/v1_1/$cloudName/image/upload',
       data: FormData.fromMap({
-        'upload_preset': 'se7ety',
+        'upload_preset': uploadPreset,
         'file': await MultipartFile.fromFile(imageFile.path),
       }),
     );

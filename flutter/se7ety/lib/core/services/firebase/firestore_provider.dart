@@ -35,4 +35,32 @@ class FirestoreProvider {
       return null;
     }
   }
+
+  static Future<void> updateUser(UserModel user) async {
+    await users.doc(user.uid).set(user.toUpdateData(), SetOptions(merge: true));
+  }
+
+  static Future<void> updateDoctor(DoctorModel doctor) async {
+    await doctors.doc(doctor.uid).update(doctor.toUpdateData());
+  }
 }
+
+// Collection => Documents => (Id, Data(Map))
+
+//! GET
+// Get All Documents => collection("doctor").get();
+// Get Document By Id => collection("doctor").doc(id).get();
+// Sorting/Ordering => collection("doctor").orderBy("rating", descending: true).get();
+// Filtering => collection("doctor").where("specialization", isEqualTo: "طب عام").get();
+// searching => collection("doctor").orderBy("name").startAt(["علي"]).endAt(["علي"+"\uf8ff"]).get();
+// pagination => collection("doctor").limit(20).get();
+
+//! SET
+// Set Document => collection("doctor").doc(id).set(data);
+// Add Document => collection("doctor").add(data);
+
+//! UPDATE
+// Update Document => collection("doctor").doc(id).update(data);
+
+//! DELETE
+// Delete Document => collection("doctor").doc(id).delete();
