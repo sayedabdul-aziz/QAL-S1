@@ -20,16 +20,15 @@ class SplashScreen extends StatelessWidget {
             state.hasCompletedOnboarding ? Routes.welcome : Routes.onboarding,
           );
         } else if (state is SplashSignedInState) {
-          final needsDoctorRegistration =
-              state.userType == UserTypeEnum.doctor &&
-              !state.isCompletedProfile;
-          // The patient and doctor home routes are not registered yet.
-          pushWithReplacement(
-            context,
-            needsDoctorRegistration
-                ? Routes.doctorRegistration
-                : Routes.welcome,
-          );
+          if (state.userType == UserTypeEnum.patient) {
+            pushWithReplacement(context, Routes.mainPatient);
+          } else {
+            if (!state.isCompletedProfile) {
+              pushWithReplacement(context, Routes.doctorRegistration);
+            } else {
+              pushWithReplacement(context, Routes.mainDoctor);
+            }
+          }
         } else if (state is SplashFailureState) {
           pushWithReplacement(context, Routes.welcome);
         }

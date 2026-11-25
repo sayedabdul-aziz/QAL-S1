@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:se7ety/core/presentation/enum/user_enum.dart';
+import 'package:se7ety/features/auth/data/models/doctor_model.dart';
 import 'package:se7ety/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:se7ety/features/auth/presentation/page/login_screen.dart';
 import 'package:se7ety/features/auth/presentation/page/register_screen.dart';
@@ -9,6 +10,11 @@ import 'package:se7ety/features/intro/onboarding/onboarding_screen.dart';
 import 'package:se7ety/features/intro/splash/cubit/splash_cubit.dart';
 import 'package:se7ety/features/intro/splash/splash_screen.dart';
 import 'package:se7ety/features/intro/welcome/welcome_screen.dart';
+import 'package:se7ety/features/patient/booking/presentation/booking_screen.dart';
+import 'package:se7ety/features/patient/booking/presentation/cubit/booking_cubit.dart';
+import 'package:se7ety/features/patient/doctor_profile/page/doctor_profile_screen.dart';
+import 'package:se7ety/features/patient/home/presentation/page/specialization_search_screen.dart';
+import 'package:se7ety/features/patient/main/patient_main_screen.dart';
 import 'package:se7ety/features/update_doctor/cubit/update_doctor_profile_cubit.dart';
 import 'package:se7ety/features/update_doctor/page/doctor_registeration_screen.dart';
 
@@ -68,6 +74,27 @@ class Routes {
         builder: (context, state) => BlocProvider(
           create: (context) => UpdateDoctorProfileCubit(),
           child: UpdateDoctorProfileScreen(),
+        ),
+      ),
+      GoRoute(
+        path: mainPatient,
+        builder: (context, state) => PatientMainAppScreen(),
+      ),
+      GoRoute(
+        path: specializationSearch,
+        builder: (context, state) =>
+            SpecializationSearchScreen(specialization: state.extra as String),
+      ),
+      GoRoute(
+        path: doctorProfile,
+        builder: (context, state) =>
+            DoctorProfileScreen(doctorModel: state.extra as DoctorModel),
+      ),
+      GoRoute(
+        path: bookingScreen,
+        builder: (context, state) => BlocProvider(
+          create: (context) => BookingCubit(state.extra as DoctorModel),
+          child: const BookingScreen(),
         ),
       ),
     ],

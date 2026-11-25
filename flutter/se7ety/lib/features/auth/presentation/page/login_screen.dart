@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -51,13 +49,12 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pop(context);
             showMyDialog(context, state.message);
           } else if (state is AuthSuccessState) {
-            log(state.userType.name);
             Navigator.pop(context);
-            // if (state.userType == UserTypeEnum.doctor) {
-            //   pushToBase(context, Routes.mainDoctor);
-            // } else {
-            //   pushToBase(context, Routes.mainPatient);
-            // }
+            if (state.userType == UserTypeEnum.doctor) {
+              // pushToBase(context, Routes.mainDoctor);
+            } else {
+              pushToBase(context, Routes.mainPatient);
+            }
           }
         },
         child: Center(

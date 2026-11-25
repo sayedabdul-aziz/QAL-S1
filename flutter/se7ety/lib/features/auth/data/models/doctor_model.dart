@@ -2,7 +2,7 @@ import 'package:se7ety/features/auth/data/models/user_model.dart';
 
 class DoctorModel extends UserModel {
   String? specialization;
-  int? rating;
+  double? rating;
   String? phone1;
   String? phone2;
   String? bio;
@@ -58,6 +58,7 @@ class DoctorModel extends UserModel {
     return data;
   }
 
+  @override
   Map<String, dynamic> toUpdateData() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (name != null) data['name'] = name;

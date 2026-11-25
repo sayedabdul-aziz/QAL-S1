@@ -27,6 +27,8 @@ class SplashCubit extends Cubit<SplashState> {
       final profile = await FirestoreProvider.getUserById(user.uid);
       if (isClosed) return;
 
+      SharedPref.setUserData(profile);
+
       emit(
         SplashSignedInState(
           userType: UserTypeEnum.fromString(profile?.userType ?? ''),

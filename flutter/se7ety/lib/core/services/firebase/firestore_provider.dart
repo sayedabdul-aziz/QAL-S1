@@ -1,20 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:se7ety/core/presentation/enum/user_enum.dart';
+import 'package:se7ety/core/services/local/shared_pref.dart';
 import 'package:se7ety/features/auth/data/models/doctor_model.dart';
 import 'package:se7ety/features/auth/data/models/patient_model.dart';
 import 'package:se7ety/features/auth/data/models/user_model.dart';
+import 'package:se7ety/features/patient/booking/data/appointment_model.dart';
 
 class FirestoreProvider {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static final CollectionReference users = FirebaseFirestore.instance
       .collection('users');
-  static final CollectionReference doctors = FirebaseFirestore.instance
-      .collection('doctor');
+  static final doctors = FirebaseFirestore.instance.collection('doctor');
   static final CollectionReference patients = FirebaseFirestore.instance
       .collection('patient');
+  static final appointment = FirebaseFirestore.instance.collection(
+    'appointment',
+  );
 
   static Future<void> createUser(UserModel user) async {
     await users.doc(user.uid).set(user.toJson());
+    SharedPref.setUserData(user);
   }
 
   static Future<void> createDoctor(DoctorModel doctor) async {
@@ -42,6 +48,54 @@ class FirestoreProvider {
 
   static Future<void> updateDoctor(DoctorModel doctor) async {
     await doctors.doc(doctor.uid).update(doctor.toUpdateData());
+  }
+
+  static Future<QuerySnapshot<Object?>> getDoctorsBySpecialization(
+    String specialization,
+  ) async {
+    // return all doctors by specialization name
+    return doctors
+        .where("specialization", isEqualTo: specialization, isNull: false)
+        .get();
+  }
+
+  static Stream<QuerySnapshot<Object?>> sortingDoctorsRates() {
+    try {
+      var query = doctors
+          .orderBy("rating", descending: true)
+          .where("specialization", isNull: false)
+          .snapshots();
+      return query;
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+
+  static Future<void> createAppointment(AppointmentModel model) async {
+    await appointment.doc().set(model.toJson());
+  }
+
+  static Future<void> updateAppointment(AppointmentModel model) async {
+    await appointment.doc(model.id).update(model.toUpdateData());
+  }
+
+  static Future<void> deleteAppointment(String id) async {
+    await appointment.doc(id).delete();
+  }
+
+  static Future<QuerySnapshot<Object?>> getAppointmentsByUserId() async {
+    try {
+      var user = SharedPref.getUserData();
+      String field = user?.userType == UserTypeEnum.doctor.name
+          ? "doctorID"
+          : "patientID";
+      var query = await appointment.where(field, isEqualTo: user?.uid).get();
+      return query;
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
   }
 }
 
